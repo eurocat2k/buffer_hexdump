@@ -14,7 +14,7 @@ var buffer = undefined;
 parser.on('packet', function(packet) {
     if (packet.data && packet.data.length) {
         buffer = packet.data;
-        console.log(lastbuff.hexdump());
+        console.log(buffer.hexdump());
     }
 });
 ```
