@@ -5,15 +5,15 @@ if (!Function.prototype.method) {
     };
 }
 
-Buffer.method('hexdump', function(bs) {
-    blockSize = bs || 16;
+Buffer.method('hexdump', function() {
+    blockSize = 16;
     var output = [];
     var hex = "0123456789ABCDEF";
     var chars = new Array(blockSize);
     var codes = new Array(blockSize);
-    output.push("\n======================================================================");
-    output.push("OFS  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F  ASCII");
-    output.push("==== ======================= =======================  ================");
+    output.push("+======+=================================================+==================+");
+    output.push("| OFS  | 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F | ASCII            |");
+    output.push("+======+=================================================+==================+");
     for (var b = 0; b < this.length; b += blockSize) {
         var block = this.slice(b, Math.min(b + blockSize, this.length));
         var addr  = ("0000" + b.toString(16)).slice(-4);
@@ -29,8 +29,10 @@ Buffer.method('hexdump', function(bs) {
                 return ".";
             }
         }).join('');
-        output.push(addr + " " + codes + "  " + chars);
+        chars +=  " ".repeat(blockSize - block.length);
+        chars += " |";
+        output.push("| " + addr + " | " + codes + " | " + chars);
     }
-    output.push("======================================================================\n");
+    output.push("+======+=================================================+==================+\n\n");
     return output.join("\n");
 });
