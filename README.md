@@ -5,10 +5,11 @@ JS Buffer's one of the missing hexdump method
 After extending Buffer's methodes with hexdump method, you can simply call it.
 
 ### Example
+Using it as pcap data visualizer.
 ```javascript
 ...
 const pcapp = require('pcap-parser');
-const parser = pcapp.parse('./data/tfload_data.pcap');
+const parser = pcapp.parse('some_path/data.pcap');
 var buffer = undefined;
 parser.on('packet', function(packet) {
     if (packet.data && packet.data.length) {
